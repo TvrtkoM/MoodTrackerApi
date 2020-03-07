@@ -1,0 +1,6 @@
+- collection orders acc. to soonest eventTime
+- query parametri za filter itema (eventTime range) collection
+- express-jsonschema
+- jest testovi
+- npm start watchess ts and reruns server
+- add README
