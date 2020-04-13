@@ -32,10 +32,11 @@ export class TodoItem {
         text: `update items set`
       };
       for (const [key, value] of map) {
-        if (key === "mood") {
-          this.mood = value;
+        const thisRef = this as any;
+        if (value instanceof Date) {
+          thisRef[key] = moment(value);
         } else {
-          this[key] = value;
+          thisRef[key] = value;
         }
         query.text = `${query.text} "${key}"=$${i}`;
         values.push(value);
