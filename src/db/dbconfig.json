@@ -1,5 +1,5 @@
 {
-  "user": "tvrtko",
-  "password": "tvrtko",
-  "database": "mood_tracker"
+  "user": "moodtracker",
+  "password": "mood",
+  "database": "moodtracker"
 }

@@ -1,3 +1,5 @@
 #!/usr/bin/env zsh
-db=$(jq '.database' src/db/dbconfig.json -r)
-psql $db < $1
+config_path=src/db/dbconfig.json
+db=$(jq '.database' $config_path -r)
+
+psql -d $db < $1

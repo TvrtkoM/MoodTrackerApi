@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.12 (Ubuntu 10.12-2.pgdg18.04+1)
--- Dumped by pg_dump version 10.12 (Ubuntu 10.12-2.pgdg18.04+1)
+-- Dumped from database version 12.2
+-- Dumped by pg_dump version 12.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -20,44 +20,12 @@ ALTER TABLE IF EXISTS ONLY "public"."items" DROP CONSTRAINT IF EXISTS "items_pke
 ALTER TABLE IF EXISTS "public"."items" ALTER COLUMN "id" DROP DEFAULT;
 DROP SEQUENCE IF EXISTS "public"."items_id_seq";
 DROP TABLE IF EXISTS "public"."items";
-DROP EXTENSION IF EXISTS "plpgsql";
-DROP SCHEMA IF EXISTS "public";
---
--- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
---
-
-CREATE SCHEMA "public";
-
-
-ALTER SCHEMA "public" OWNER TO "postgres";
-
---
--- Name: SCHEMA "public"; Type: COMMENT; Schema: -; Owner: postgres
---
-
-COMMENT ON SCHEMA "public" IS 'standard public schema';
-
-
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
---
-
-CREATE EXTENSION IF NOT EXISTS "plpgsql" WITH SCHEMA "pg_catalog";
-
-
---
--- Name: EXTENSION "plpgsql"; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION "plpgsql" IS 'PL/pgSQL procedural language';
-
-
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+SET default_table_access_method = "heap";
 
 --
--- Name: items; Type: TABLE; Schema: public; Owner: tvrtko
+-- Name: items; Type: TABLE; Schema: public; Owner: moodtracker
 --
 
 CREATE TABLE "public"."items" (
@@ -72,10 +40,10 @@ CREATE TABLE "public"."items" (
 );
 
 
-ALTER TABLE "public"."items" OWNER TO "tvrtko";
+ALTER TABLE "public"."items" OWNER TO "moodtracker";
 
 --
--- Name: items_id_seq; Type: SEQUENCE; Schema: public; Owner: tvrtko
+-- Name: items_id_seq; Type: SEQUENCE; Schema: public; Owner: moodtracker
 --
 
 CREATE SEQUENCE "public"."items_id_seq"
@@ -86,35 +54,28 @@ CREATE SEQUENCE "public"."items_id_seq"
     CACHE 1;
 
 
-ALTER TABLE "public"."items_id_seq" OWNER TO "tvrtko";
+ALTER TABLE "public"."items_id_seq" OWNER TO "moodtracker";
 
 --
--- Name: items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tvrtko
+-- Name: items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: moodtracker
 --
 
 ALTER SEQUENCE "public"."items_id_seq" OWNED BY "public"."items"."id";
 
 
 --
--- Name: items id; Type: DEFAULT; Schema: public; Owner: tvrtko
+-- Name: items id; Type: DEFAULT; Schema: public; Owner: moodtracker
 --
 
 ALTER TABLE ONLY "public"."items" ALTER COLUMN "id" SET DEFAULT "nextval"('"public"."items_id_seq"'::"regclass");
 
 
 --
--- Name: items items_pkey; Type: CONSTRAINT; Schema: public; Owner: tvrtko
+-- Name: items items_pkey; Type: CONSTRAINT; Schema: public; Owner: moodtracker
 --
 
 ALTER TABLE ONLY "public"."items"
     ADD CONSTRAINT "items_pkey" PRIMARY KEY ("id");
-
-
---
--- Name: SCHEMA "public"; Type: ACL; Schema: -; Owner: postgres
---
-
-GRANT ALL ON SCHEMA "public" TO PUBLIC;
 
 
 --
