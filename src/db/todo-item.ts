@@ -2,7 +2,7 @@ import moment, { Moment } from "moment";
 import { Database } from ".";
 import { QueryConfig } from "pg";
 import { ITodoItemModel, ITodoItemUpdateModel } from "./interfaces";
-import { ITodoItemJson, ITodoItemUpdateJson } from "../controllers/interfaces";
+import { ITodoItemJson } from "../controllers/interfaces";
 
 export class TodoItem {
   id: number;
@@ -88,17 +88,10 @@ export class TodoItems {
     return <TodoItem>(<unknown>this.get(id));
   }
 
-  static async collection(
-    options: {
-      showFinished: boolean;
-    } = { showFinished: false }
-  ): Promise<Array<TodoItem>> {
+  static async collection(): Promise<Array<TodoItem>> {
     const query: QueryConfig = {
       text: `select * from items`
     };
-    if (options.showFinished === false) {
-      query.text = `${query.text} where "eventTime" > now()::timestamptz`;
-    }
     query.text = `${query.text} order by "eventTime" asc`;
     const res = await Database.query(query);
     const items: Array<TodoItem> = (res.rows as Array<ITodoItemModel>).map(

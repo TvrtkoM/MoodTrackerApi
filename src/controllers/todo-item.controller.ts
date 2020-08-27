@@ -9,9 +9,8 @@ export class TodoItemController implements IController {
 
   constructor() {
     this.router.get("", async (req: Request, res: Response) => {
-      const showFinished = req.query["showFinished"] === "true" ? true : false;
       try {
-        const items = await TodoItems.collection({ showFinished });
+        const items = await TodoItems.collection();
         return res.send(items.map(i => i.json));
       } catch (err) {
         res.status(500);

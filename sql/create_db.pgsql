@@ -35,7 +35,6 @@ CREATE TABLE "public"."items" (
     "title" character varying(100) NOT NULL,
     "description" "text",
     "mood" smallint,
-    CONSTRAINT "eventTimeChk" CHECK (("eventTime" > "createdAt")),
     CONSTRAINT "items_mood_check" CHECK ((("mood" > 0) AND ("mood" < 11)))
 );
 
