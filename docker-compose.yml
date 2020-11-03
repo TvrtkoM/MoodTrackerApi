@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  sql:
+    image: postgres:12
+    volumes:
+      - type: bind
+        source: ./sql/create_db.pgsql
+        target: /docker-entrypoint-initdb.d/create_db.sql
+      - type: bind
+        source: ./sql/test_data.pgsql
+        target: /docker-entrypoint-initdb.d/test_data.sql
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_DB: "${DB_NAME}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+  mood-tracker-api:
+    build:
+      context: .
+      args:
+        NPM_TOKEN: "${GITHUB_AUTH_TOKEN}"
+    links:
+      - "sql:database"
+    ports:
+      - 3000:3000
+    depends_on:
+      - sql
+    command: npm start
+  mood-tracker-client:
+    image: nginx/unit
+    ports: 
+      - 8080:8080
+    expose:
+      - "8080"
+    depends_on:
+      - mood-tracker-api
+    volumes:
+      - type: bind
+        source: ./node_modules/@tvrtkom/mood-tracker-client/dist/mood-tracker-client
+        target: /app
+      - type: bind
+        source: ./nginx-unit/client-config.json
+        target: /docker-entrypoint.d/config.json

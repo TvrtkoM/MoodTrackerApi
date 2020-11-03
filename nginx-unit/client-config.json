@@ -1,0 +1,14 @@
+{
+  "listeners": {
+    "*:8080": {
+      "pass": "routes"
+    }
+  },
+  "routes": [
+    {
+      "action": {
+        "share": "/app/"
+      }
+    }
+  ]
+}
